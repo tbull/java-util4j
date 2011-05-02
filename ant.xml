@@ -1,0 +1,76 @@
+<project name="util4j" default="build">
+
+    <property name="doctitle" value="tbull's util4j" />
+
+    <property name="src" value="src" />
+    <property name="obj" value="obj" />
+    <property name="doc" value="doc" />
+    <property name="dist" value="jar" />
+
+<!--
+    <property name="" value="" />
+    <property name="" value="" />
+    <property name="" value="" />
+-->
+
+
+    <target name="build">
+        <mkdir dir="${obj}" />
+        <javac srcdir="${src}" destdir="${obj}" includesfile="public-src"
+            includeAntRuntime="no" debug="true" debuglevel="source,lines"
+            />
+    </target>
+
+    <target name="test" depends="build">
+    </target>
+
+    <target name="javadoc">
+        <mkdir dir="${doc}" />
+
+        <javadoc
+            classpath="." destdir="${doc}"
+            encoding="UTF-8" source="1.6"
+            stylesheetfile="src/empty-style.css"
+            overview="src/overview.html.inc"
+            doctitle="${doctitle}"
+            windowtitle="${doctitle}"
+            access="public"
+            noqualifier="java.lang"
+            nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false"
+            splitindex="false" use="true" version="true" author="true"
+            additionalparam='-tag todo:a:"ToDo:" -tag TODO:a:"ToDo:"'
+            >
+
+            <fileset dir="${src}"
+                includesfile="public-src"
+                includes="org/tbull/util/package-info.java, org/tbull/util/dev/package-info.java"
+                />
+                <!--
+                    in order to javadoc ALL java files of specified packages, use these
+                    arguments to the javadoc element instead of filesets:
+                    sourcepath="src"
+                    packagenames="org.tbull.util,org.tbull.util.dev,org.tbull.util.tree"
+                -->
+
+            <link href="http://download.oracle.com/javase/7/docs/api/" />
+                <!-- <link href="file:/D:/doc/java/jdk-6-doc/api/" /> -->
+        </javadoc>
+
+    </target>
+
+    <target name="dist" depends="test, javadoc">
+        <mkdir dir="${dist}" />
+    </target>
+
+    <target name="clean">
+        <delete dir="${obj}" />
+        <delete dir="${doc}" />
+        <delete dir="${dist}" />
+    </target>
+
+<!--
+    <target name="">
+    </target>
+-->
+
+</project>
