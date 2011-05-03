@@ -1,0 +1,5 @@
+# the build script uses this to package the distribution files under a certain version number
+# hopefully we'll find an way to automatically insert this in the doc files (overview.html.inc)
+# the version number should follow the semantic versioning standard
+# and this file should follow the Java properties file format
+version = 0.0.1

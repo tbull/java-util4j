@@ -1,37 +1,53 @@
 <project name="util4j" default="build">
 
     <property name="doctitle" value="tbull's util4j" />
+    <property name="overviewfile" value="src/overview.html.inc" />
+    <property name="stylesheetfile" value="src/empty-style.css" />
 
     <property name="src" value="src" />
     <property name="obj" value="obj" />
     <property name="doc" value="doc" />
     <property name="dist" value="jar" />
 
+    <property file="lib-version" />
+
 <!--
-    <property name="" value="" />
     <property name="" value="" />
     <property name="" value="" />
 -->
 
 
+
+
     <target name="build">
         <mkdir dir="${obj}" />
-        <javac srcdir="${src}" destdir="${obj}" includesfile="public-src"
+        <javac srcdir="${src}" destdir="${obj}" includesfile="lib-src"
             includeAntRuntime="no" debug="true" debuglevel="source,lines"
-            />
+        />
     </target>
+
+
+
 
     <target name="test" depends="build">
+        <!-- build test objects -->
+
+        <!-- run tests -->
+        <!-- remember to -ea -->
     </target>
 
+
+
+
+    <target name="doc"      depends="javadoc" />
     <target name="javadoc">
         <mkdir dir="${doc}" />
 
         <javadoc
             classpath="." destdir="${doc}"
             encoding="UTF-8" source="1.6"
-            stylesheetfile="src/empty-style.css"
-            overview="src/overview.html.inc"
+            stylesheetfile="${stylesheetfile}"
+            overview="${overviewfile}"
             doctitle="${doctitle}"
             windowtitle="${doctitle}"
             access="public"
@@ -39,12 +55,10 @@
             nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false"
             splitindex="false" use="true" version="true" author="true"
             additionalparam='-tag todo:a:"ToDo:" -tag TODO:a:"ToDo:"'
-            >
+        >
 
-            <fileset dir="${src}"
-                includesfile="public-src"
-                includes="org/tbull/util/package-info.java, org/tbull/util/dev/package-info.java"
-                />
+            <fileset dir="${src}" includesfile="lib-src" />
+            <fileset dir="${src}" includesfile="javadoc-src" />
                 <!--
                     in order to javadoc ALL java files of specified packages, use these
                     arguments to the javadoc element instead of filesets:
@@ -58,15 +72,71 @@
 
     </target>
 
+
+
+
     <target name="dist" depends="test, javadoc">
         <mkdir dir="${dist}" />
+
+        <delete  file="${dist}/${ant.project.name}-${version}.jar" />
+        <jar destfile="${dist}/${ant.project.name}-${version}.jar"
+            basedir="${obj}"
+            index="true"
+            compress="true" level="9"
+            strict="warn"
+        />
+            <!-- TODO: perhaps we should set
+                Implementation-Title, Implementation-Version, Implementation-Vendor
+                as the jar task suggests
+                <jar>
+                    <manifest>
+                      <attribute name="Specification-Title" value="Example"/>
+                      <attribute name="Specification-Version" value="${version}"/>
+                      <attribute name="Specification-Vendor" value="Example Organization"/>
+                      <attribute name="Implementation-Title" value="common"/>
+                      <attribute name="Implementation-Version" value="${version} ${TODAY}"/>
+                      <attribute name="Implementation-Vendor" value="Example Corp."/>
+                    </manifest>
+                </jar>
+            -->
+
+
+        <delete  file="${dist}/${ant.project.name}-${version}-doc.jar" />
+        <jar destfile="${dist}/${ant.project.name}-${version}-doc.jar"
+            basedir="${doc}"
+            index="false"
+            compress="true" level="9"
+            strict="ignore"
+        />
+
+
+        <delete  file="${dist}/${ant.project.name}-${version}-src.jar" />
+        <jar destfile="${dist}/${ant.project.name}-${version}-src.jar"
+            index="false"
+            compress="true" level="9"
+            strict="ignore"
+        >
+
+            <fileset dir="${src}" includesfile="lib-src" />
+            <fileset dir="${src}" includesfile="javadoc-src" />
+            <fileset file="${overviewfile}" />
+            <fileset file="${stylesheetfile}" />
+
+            <!-- TODO: add LICENSE to meta-inf -->
+        </jar>
     </target>
+
+
+
 
     <target name="clean">
         <delete dir="${obj}" />
         <delete dir="${doc}" />
         <delete dir="${dist}" />
     </target>
+
+
+
 
 <!--
     <target name="">

@@ -1,4 +1,6 @@
 *.bak
 *~
 *.class
-
+doc/
+jar/
+obj/
