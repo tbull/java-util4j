@@ -1,5 +1,7 @@
 <project name="util4j" default="build">
 
+    <property name="licensefile" value="LICENSE" />
+
     <property name="doctitle" value="tbull's util4j" />
     <property name="overviewfile" value="src/overview.html.inc" />
     <property name="stylesheetfile" value="src/empty-style.css" />
@@ -84,7 +86,7 @@
             index="true"
             compress="true" level="9"
             strict="warn"
-        />
+        >
             <!-- TODO: perhaps we should set
                 Implementation-Title, Implementation-Version, Implementation-Vendor
                 as the jar task suggests
@@ -100,6 +102,9 @@
                 </jar>
             -->
 
+            <metainf file="${licensefile}" />
+        </jar>
+
 
         <delete  file="${dist}/${ant.project.name}-${version}-doc.jar" />
         <jar destfile="${dist}/${ant.project.name}-${version}-doc.jar"
@@ -107,7 +112,9 @@
             index="false"
             compress="true" level="9"
             strict="ignore"
-        />
+        >
+            <metainf file="${licensefile}" />
+        </jar>
 
 
         <delete  file="${dist}/${ant.project.name}-${version}-src.jar" />
@@ -121,6 +128,7 @@
             <fileset dir="${src}" includesfile="javadoc-src" />
             <fileset file="${overviewfile}" />
             <fileset file="${stylesheetfile}" />
+            <metainf file="${licensefile}" />
 
             <!-- TODO: add LICENSE to meta-inf -->
         </jar>

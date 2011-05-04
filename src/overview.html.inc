@@ -11,6 +11,9 @@ This is so braindead...
 
     <P>For updates, bug reports or whatever, see <A HREF="http://tbull.org/projects/util4j/">the util4j home</A>.</P>
 
+    <P>Copyright (C) 2010, 2011 by Roland Bluethgen ("T-Bull") &lt;tbull (at) tbull (dot) org&gt;<BR>
+    Released under the terms of the ISC license</P>
+
     <P STYLE="font-variant:small-caps">Ceterum censeo HTML in Javadoc is the dumbest idea ever.</P>
 
     @author     Roland Bluethgen a.k.a. T-Bull
