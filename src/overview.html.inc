@@ -9,7 +9,7 @@ This is so braindead...
 
     Utilities for the little tedious everyday tasks.
 
-    <P>For updates, bug reports or whatever, see <A HREF="http://tbull.org/projects/util4j/">the util4j home</A> (not yet existent at the time of writing).</P>
+    <P>For updates, bug reports or whatever, see <A HREF="http://tbull.org/projects/util4j/">the util4j home</A>.</P>
 
     <P STYLE="font-variant:small-caps">Ceterum censeo HTML in Javadoc is the dumbest idea ever.</P>
 
